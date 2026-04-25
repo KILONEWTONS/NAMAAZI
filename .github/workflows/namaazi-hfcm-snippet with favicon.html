@@ -1,0 +1,301 @@
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
+
+<style>
+  body.namaazi-active *:not(.namaazi-fullscreen):not(.namaazi-fullscreen *) {
+    visibility: hidden !important;
+  }
+
+  body.namaazi-active {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #000 !important;
+    overflow: hidden !important;
+  }
+
+  body.namaazi-active .namaazi-fullscreen {
+    visibility: visible !important;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    z-index: 999999;
+    overflow: hidden;
+  }
+
+  body.namaazi-active .namaazi-fullscreen * {
+    visibility: visible !important;
+  }
+
+  /* Luxury background glow — radial burst behind text */
+  body.namaazi-active .namaazi-fullscreen::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 60vh;
+    background: radial-gradient(ellipse at center,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(200, 200, 200, 0.04) 35%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    animation: namaazi-glow-in 2.5s ease 0.5s forwards;
+    z-index: 0;
+  }
+
+  /* Subtle secondary deep glow */
+  body.namaazi-active .namaazi-fullscreen::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: 40vh;
+    background: radial-gradient(ellipse at center,
+      rgba(180, 160, 120, 0.06) 0%,
+      transparent 65%
+    );
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    animation: namaazi-glow-in 2s ease 1s forwards;
+    z-index: 0;
+  }
+
+  /* NAMAAZI main text */
+  body.namaazi-active .namaazi-text {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 13vw, 11rem);
+    color: #fff;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0 0.1em;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+
+    text-shadow:
+      0 0 40px rgba(255, 255, 255, 0.18),
+      0 0 80px rgba(255, 255, 255, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.8);
+
+    opacity: 0;
+    transform: translateY(-24px) scaleX(0.97);
+    animation: namaazi-drop 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  }
+
+  /* Thin gold-tinted divider */
+  body.namaazi-active .namaazi-line {
+    width: 0;
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent,
+      rgba(210, 195, 165, 0.6) 30%,
+      rgba(255, 245, 220, 0.9) 50%,
+      rgba(210, 195, 165, 0.6) 70%,
+      transparent
+    );
+    position: relative;
+    z-index: 1;
+    animation: namaazi-line-grow 1s cubic-bezier(0.22, 1, 0.36, 1) 1.1s forwards;
+  }
+
+  /* namaazi.com subtitle */
+  body.namaazi-active .namaazi-url {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.65rem, 1.8vw, 1.3rem);
+    color: rgba(220, 210, 190, 0.85);
+    letter-spacing: 0.5em;
+    text-transform: lowercase;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+
+    text-shadow: 0 0 20px rgba(200, 185, 150, 0.3);
+
+    opacity: 0;
+    animation: namaazi-url-fade 1.6s ease 1.4s forwards;
+  }
+
+  /* Founder line */
+  body.namaazi-active .namaazi-founder {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.55rem, 1.4vw, 1rem);
+    color: rgba(220, 210, 190, 0.6);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    margin-top: 0.2em;
+    position: relative;
+    z-index: 1;
+
+    opacity: 0;
+    animation: namaazi-founder-fade 1.4s ease 1.9s forwards;
+  }
+
+  /* Keyframes */
+  @keyframes namaazi-drop {
+    0%   { opacity: 0; transform: translateY(-24px) scaleX(0.97); }
+    100% { opacity: 1; transform: translateY(0) scaleX(1); }
+  }
+
+  @keyframes namaazi-line-grow {
+    0%   { width: 0; }
+    100% { width: clamp(120px, 28vw, 340px); }
+  }
+
+  @keyframes namaazi-url-fade {
+    0%   { opacity: 0; letter-spacing: 0.75em; }
+    100% { opacity: 1; letter-spacing: 0.5em; }
+  }
+
+  @keyframes namaazi-founder-fade {
+    0%   { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes namaazi-glow-in {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+</style>
+
+<div class="namaazi-fullscreen">
+  <span class="namaazi-text">NAMAAZI</span>
+  <div class="namaazi-line"></div>
+  <span class="namaazi-url">namaazi.com</span>
+  <span class="namaazi-founder">Sameer Ahmed &nbsp;·&nbsp; Founder &amp; CEO &nbsp;·&nbsp; Namaazi</span>
+</div>
+
+<script>
+  document.body.classList.add('namaazi-active');
+
+  // ── Temporary favicon swap ───────────────────────────────────────────────
+  (function () {
+    // Draw the "N" favicon on a canvas and inject it as a temporary <link>
+    function namaazi_buildFavicon() {
+      var size = 64;
+      var c = document.createElement('canvas');
+      c.width = c.height = size;
+      var ctx = c.getContext('2d');
+
+      // Black background
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, size, size);
+
+      // Bold white "N" — Inter-style geometry drawn manually so no font-load
+      // dependency is needed at favicon paint time
+      ctx.fillStyle = '#ffffff';
+      var lw = size * 0.155; // stroke width
+      var pad = size * 0.14; // side padding
+      var top = size * 0.13;
+      var bot = size - top;
+
+      // Left vertical bar
+      ctx.fillRect(pad, top, lw, bot - top);
+
+      // Right vertical bar
+      ctx.fillRect(size - pad - lw, top, lw, bot - top);
+
+      // Diagonal — drawn as a filled polygon
+      ctx.beginPath();
+      ctx.moveTo(pad,            top);
+      ctx.lineTo(pad + lw,       top);
+      ctx.lineTo(size - pad,     bot);
+      ctx.lineTo(size - pad - lw, bot);
+      ctx.closePath();
+      ctx.fill();
+
+      return c.toDataURL('image/png');
+    }
+
+    // Save the original favicon href so we can restore it later
+    var _namaazi_origFavicon = null;
+    var _namaazi_faviconLink  = null;
+
+    function namaazi_swapFavicon() {
+      // Find existing favicon link (any rel containing "icon")
+      var existing = document.querySelector('link[rel~="icon"]');
+      if (existing) {
+        _namaazi_origFavicon = existing.href;
+        _namaazi_faviconLink = existing;
+        existing.href = namaazi_buildFavicon();
+      } else {
+        // No existing favicon — create one; remember it's ours to remove later
+        _namaazi_faviconLink = document.createElement('link');
+        _namaazi_faviconLink.rel  = 'icon';
+        _namaazi_faviconLink.type = 'image/png';
+        _namaazi_faviconLink.href = namaazi_buildFavicon();
+        _namaazi_faviconLink.setAttribute('data-namaazi-injected', '1');
+        document.head.appendChild(_namaazi_faviconLink);
+      }
+    }
+
+    function namaazi_restoreFavicon() {
+      if (!_namaazi_faviconLink) return;
+      if (_namaazi_faviconLink.getAttribute('data-namaazi-injected')) {
+        // We created it — remove it entirely so the browser reverts to default
+        _namaazi_faviconLink.parentNode &&
+          _namaazi_faviconLink.parentNode.removeChild(_namaazi_faviconLink);
+      } else {
+        // We borrowed an existing link — restore the original href
+        _namaazi_faviconLink.href = _namaazi_origFavicon || '';
+      }
+      _namaazi_faviconLink = null;
+      _namaazi_origFavicon = null;
+    }
+
+    // Swap in immediately
+    namaazi_swapFavicon();
+
+    // Restore when the namaazi-active class is removed from <body>
+    // (covers cases where a parent plugin removes the overlay)
+    var _namaazi_observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        if (m.type === 'attributes' && m.attributeName === 'class') {
+          if (!document.body.classList.contains('namaazi-active')) {
+            namaazi_restoreFavicon();
+            _namaazi_observer.disconnect();
+          }
+        }
+      });
+    });
+    _namaazi_observer.observe(document.body, { attributes: true });
+
+    // Also restore on page unload / navigation as a safety net
+    window.addEventListener('pagehide', namaazi_restoreFavicon);
+  })();
+  // ── End favicon swap ─────────────────────────────────────────────────────
+
+  // Auto-refresh once on mobile & tablet devices
+  (function () {
+    var isMobileOrTablet =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Tablet/i.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    if (isMobileOrTablet) {
+      var reloaded = sessionStorage.getItem('namaazi_reloaded');
+      if (!reloaded) {
+        sessionStorage.setItem('namaazi_reloaded', '1');
+        location.reload();
+      }
+    }
+  })();
+</script>
